@@ -62,7 +62,7 @@ function title:draw()
 	self.aboutInfo:draw()
 
 	love.graphics.print("v0.5", 5, 625)
-	
+
 	self.blackMask:draw()
 end
 
@@ -81,6 +81,7 @@ function title:update(dt)
 end
 
 function title:startGame()
+	self.locked = false
 	Gamestate.push(shopState)
 	self.blackMask = ScreenMask(0, 0, 0, 0)
 end
@@ -129,10 +130,12 @@ function title:keyreleased(key)
 
 		if (key == "z" or key == "j") then
 			if self.choice == 1 then
+				self.locked = true
 				tween(0.4, self.blackMask, {alpha = 255}, 'linear', self.startGame, self)
 			elseif self.choice == 2 then
 				self:enterAbout()
 			elseif self.choice == 3 then
+				self.locked = true
 				tween(0.4, self.blackMask, {alpha = 255}, 'linear', self.quitGame, self)
 			end
 		end
