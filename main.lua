@@ -5,7 +5,14 @@ loader = require "lib.loader"
 titleState = require "states.title"
 anim8 = require "lib.anim8"
 
+config = require "game.config"
+
 function love.load()
+
+	config.loadFromFile()
+
+	-- love.window.setMode(config.values.screenWidth, config.values.screenHeight)
+
 	loader.setBaseImageDir('data/img')
 	loader.setBaseAudioDir('data/sound')
 	loader.init()
