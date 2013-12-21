@@ -1,3 +1,5 @@
+io.stdout:setvbuf("no")
+
 Gamestate = require "lib.hump.gamestate"
 loader = require "lib.loader"
 titleState = require "states.title"
@@ -9,8 +11,7 @@ function love.load()
 	loader.init()
 	loader.explosionGrid = anim8.newGrid(128, 128, 1024, 1024)
 
-	love.graphics.setDefaultImageFilter("nearest", "nearest")
-	love.graphics.setIcon(love.graphics.newImage("data/img/icon.png"))
+	love.graphics.setDefaultFilter("nearest", "nearest")
 	Gamestate.registerEvents{'update', 'quit', 'keyreleased', 'mousepressed', 'mousereleased'}
 	Gamestate.switch(titleState)
 end

@@ -78,7 +78,7 @@ function shop:enter()
 	self.reverseCashSnd = love.audio.newSource("data/sound/hsac.ogg", "static")
 	self.reverseCashSnd:setVolume(0.2)
 
-	self.shopMusic = love.audio.newSource("data/music/choke.ogg", "dynamic")
+	self.shopMusic = love.audio.newSource("data/music/choke.ogg", "stream")
 	self.shopMusic:setLooping(true)
 	love.audio.rewind(self.shopMusic)
 	love.audio.play(self.shopMusic)

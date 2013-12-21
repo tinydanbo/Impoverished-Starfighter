@@ -36,7 +36,7 @@ function game:enter(previousState, shopShipObj)
 	
 	self.bossAlarm = love.audio.newSource("data/sound/alarm.ogg", "static")
 	self.bossAlarm:setVolume(0.3)
-	self.bossMusic = love.audio.newSource("data/music/kitrock.ogg", "dynamic")
+	self.bossMusic = love.audio.newSource("data/music/kitrock.ogg", "stream")
 	self.bossMusic:setLooping(true)
 
 	self.volume = {
@@ -52,7 +52,7 @@ function game:setupStage(stageNum)
 	self.stage = stageNum
 	local stageObj = require("game.stages.stage" .. stageNum)
 
-	self.stageMusic = love.audio.newSource("data/music/stage" .. stageNum .. ".ogg", "dynamic")
+	self.stageMusic = love.audio.newSource("data/music/stage" .. stageNum .. ".ogg", "stream")
 	tween(1, self.volume, {stage = 1})
 	love.audio.play(self.stageMusic)
 
