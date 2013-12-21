@@ -11,7 +11,8 @@ function love.load()
 
 	config.loadFromFile()
 
-	-- love.window.setMode(config.values.screenWidth, config.values.screenHeight)
+	love.window.setMode(config.values.screenWidth, config.values.screenHeight)
+	canvas = love.graphics.newCanvas(480, 640)
 
 	loader.setBaseImageDir('data/img')
 	loader.setBaseAudioDir('data/sound')
@@ -24,7 +25,20 @@ function love.load()
 end
 
 function love.draw()
-	Gamestate.draw()
-	love.graphics.setColor(255, 255, 255)
-	-- love.graphics.printf(tostring(love.timer.getFPS( )).."fps", 0, (love.graphics.getHeight() - 20), (love.graphics.getWidth() - 5), "right")
+	love.graphics.setCanvas(canvas)
+		canvas:clear()
+		Gamestate.draw()
+		love.graphics.setColor(255, 255, 255)
+	love.graphics.setCanvas()
+
+	love.graphics.draw(
+		canvas, 
+		config.values.screenWidth / 2, 
+		config.values.screenHeight / 2, 
+		0, 
+		config.values.screenScaling, 
+		config.values.screenScaling, 
+		canvas:getWidth() / 2,
+		canvas:getHeight() / 2
+	)
 end

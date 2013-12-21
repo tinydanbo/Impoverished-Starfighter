@@ -6,13 +6,18 @@ config.values = {
 	up = "w",
 	down = "s",
 	left = "a",
-	right = "d"
+	right = "d",
+	screenWidth = 480,
+	screenHeight = 640,
+	screenScaling = 1
 }
 
 config.loadFromFile = function()
-	local configString = love.filesystem.read("config.lua")
-	local configTable = Tserial.unpack(configString, "true")
-	config.values = configTable
+	if love.filesystem.exists("config.lua") then
+		local configString = love.filesystem.read("config.lua")
+		local configTable = Tserial.unpack(configString, "true")
+		config.values = configTable
+	end
 end
 
 config.saveToFile = function()
