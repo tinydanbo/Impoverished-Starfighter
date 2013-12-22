@@ -17,7 +17,6 @@ function love.load()
 	loader.setBaseImageDir('data/img')
 	loader.setBaseAudioDir('data/sound')
 	loader.init()
-	loader.explosionGrid = anim8.newGrid(128, 128, 1024, 1024)
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	Gamestate.registerEvents{'update', 'quit', 'keyreleased', 'mousepressed', 'mousereleased'}

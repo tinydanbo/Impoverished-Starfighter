@@ -10,8 +10,9 @@ Explosion = Class{__includes = Entity,
 		self.velocity = vector(dx, dy)
 		self.scale = scale
 		self.image = loader.Image.particles.explosion
-		self.animation = anim8.newAnimation(loader.explosionGrid('1-8', ('2-8')), 0.01, 'pauseAtEnd')
+		self.animation = anim8.newAnimation(Explosion.explosionGrid('1-8', ('2-8')), 0.01, 'pauseAtEnd')
 	end,
+	explosionGrid = anim8.newGrid(128, 128, 1024, 1024)
 }
 
 function Explosion:update(dt)
