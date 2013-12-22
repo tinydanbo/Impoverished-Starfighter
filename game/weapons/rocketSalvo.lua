@@ -20,7 +20,7 @@ end
 function RocketSalvo:fire()
 	local player = self.state.player
 
-	if player.energy > self.cost then
+	if player.energy >= self.cost then
 		player.energy = player.energy - self.cost
 
 		local x,y = player.position:unpack()
