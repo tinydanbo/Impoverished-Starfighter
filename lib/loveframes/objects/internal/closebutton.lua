@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- closebutton class
@@ -18,6 +18,7 @@ function newobject:initialize()
 	self.internal = true
 	self.hover = false
 	self.down = false
+	self.autoposition = true
 	self.OnClick = function() end
 	
 	-- apply template properties to the object
@@ -59,6 +60,11 @@ function newobject:update(dt)
 	
 	if not down and downobject == self then
 		self.hover = true
+	end
+	
+	if self.autoposition then
+		self.staticx = self.parent.width - self.width - 4
+		self.staticy = 4
 	end
 	
 	-- move to parent if there is a parent
@@ -152,4 +158,26 @@ function newobject:mousereleased(x, y, button)
 	
 	self.down = false
 
+end
+
+--[[---------------------------------------------------------
+	- func: SetAutoPosition(bool)
+	- desc: sets whether or not the object should be 
+			positioned automatically
+--]]---------------------------------------------------------
+function newobject:SetAutoPosition(bool)
+
+	self.autoposition = bool
+	
+end
+
+--[[---------------------------------------------------------
+	- func: GetAutoPosition()
+	- desc: gets whether or not the object should be 
+			positioned automatically
+--]]---------------------------------------------------------
+function newobject:GetAutoPosition()
+
+	return self.autoposition
+	
 end

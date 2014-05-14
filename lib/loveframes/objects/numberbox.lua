@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- numberbox object
@@ -32,6 +32,7 @@ function newobject:initialize()
 	input.parent = self
 	input:SetSize(50, 20)
 	input:SetUsable({"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", "-"})
+	input:SetTabReplacement("")
 	input:SetText(self.value)
 	input.OnTextChanged = function(object)
 		local value = self.value
@@ -73,13 +74,8 @@ function newobject:initialize()
 		end
 	end
 	increasebutton.Update = function(object)
-		local loveversion = love._version
 		local time = 0
-		if loveversion == "0.8.0" then
-			time = love.timer.getMicroTime()
-		else
-			time = love.timer.getTime()
-		end
+		time = love.timer.getTime()
 		local delay = self.delay
 		local down = object.down
 		local canmodify = self.canmodify
@@ -113,13 +109,8 @@ function newobject:initialize()
 		end
 	end
 	decreasesbutton.Update = function(object)
-		local loveversion = love._version
 		local time = 0
-		if loveversion == "0.8.0" then
-			time = love.timer.getMicroTime()
-		else
-			time = love.timer.getTime()
-		end
+		time = love.timer.getTime()
 		local delay = self.delay
 		local down = object.down
 		local canmodify = self.canmodify
@@ -291,6 +282,8 @@ function newobject:SetValue(value)
 		onvaluechanged(self, value)
 	end
 	
+	return self
+	
 end
 
 --[[---------------------------------------------------------
@@ -310,6 +303,7 @@ end
 function newobject:SetIncreaseAmount(amount)
 
 	self.increaseamount = amount
+	return self
 	
 end
 
@@ -330,6 +324,7 @@ end
 function newobject:SetDecreaseAmount(amount)
 
 	self.decreaseamount = amount
+	return self
 	
 end
 
@@ -363,6 +358,8 @@ function newobject:SetMax(max)
 		end
 	end
 	
+	return self
+	
 end
 
 --[[---------------------------------------------------------
@@ -394,6 +391,8 @@ function newobject:SetMin(min)
 			onvaluechanged(self, min)
 		end
 	end
+	
+	return self
 	
 end
 
@@ -435,6 +434,8 @@ function newobject:SetMinMax(min, max)
 			onvaluechanged(self, min)
 		end
 	end
+	
+	return self
 	
 end
 
@@ -494,6 +495,8 @@ function newobject:ModifyValue(type)
 		end
 	end
 	
+	return self
+	
 end
 
 --[[---------------------------------------------------------
@@ -504,6 +507,7 @@ end
 function newobject:SetDecimals(decimals)
 
 	self.decimals = decimals
+	return self
 	
 end
 

@@ -1,5 +1,5 @@
 local middleclass = {
-  _VERSION     = 'middleclass v3.0.0',
+  _VERSION     = 'middleclass v3.0.1',
   _DESCRIPTION = 'Object Orientation for Lua',
   _LICENSE     = [[
     MIT LICENSE
@@ -96,8 +96,9 @@ end
 
 local Object = _createClass("Object", nil)
 
-Object.static.__metamethods = { '__add', '__call', '__concat', '__div', '__le', '__lt',
-                                '__mod', '__mul', '__pow', '__sub', '__tostring', '__unm' }
+Object.static.__metamethods = { '__add', '__call', '__concat', '__div', '__ipairs', '__le',
+                                '__len', '__lt', '__mod', '__mul', '__pairs', '__pow', '__sub',
+                                '__tostring', '__unm'}
 
 function Object.static:allocate()
   assert(type(self) == 'table', "Make sure that you are using 'Class:allocate' instead of 'Class.allocate'")

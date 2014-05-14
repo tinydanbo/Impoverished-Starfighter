@@ -1,10 +1,80 @@
 ================================================
-Version 0.9.6.4 - Alpha (Release Date TBD)
+Version 0.9.8.1 - Alpha (Release Date TBD)
+================================================
+[FIXED] frame:MakeTop not returning self in certain situations
+
+[CHANGED] returning false in a frame.OnClose event callback will prevent the frame from being removed
+
+================================================
+Version 0.9.8 - Alpha (April 3 - 2014)
+================================================
+[ADDED] support for method chaining
+[ADDED] a new tooltip method: GetPadding()
+[ADDED] a new frame method: SetAlwaysOnTop(bool)
+[ADDED] a new frame method: GetAlwaysOnTop()
+
+[FIXED] text object link detection issues
+[FIXED] loveframes.util.GetDirectoryContents returning incorrect require paths
+
+[CHANGED] the text object will now detect newlines that are not separated by spaces
+
+[REMOVED] support for LOVE 0.8.0
+
+================================================
+Version 0.9.7.2 - Alpha (January 29 - 2014)
+================================================
+[ADDED] a new closebutton method: SetAutoPosition(bool)
+[ADDED] a new closebutton method: GetAutoPosition()
+[ADDED] checkbox skin directives
+
+[FIXED] ability to use the tab button in numberbox textinputs
+[FIXED] text width being calculated incorrectly when max width was set to 0
+[FIXED] base menus can no longer extend beyond the boundaries of the application window
+
+[CHANGED] minor performance improvements for the following objects: list, columnlistarea, tabs
+[CHANGED] closebuttons are now automatically positioned by default
+[CHANGED] optimized loveframes.util.TableHasKey (thanks CyaNox)
+
+================================================
+Version 0.9.7.1 - Alpha (January 15 - 2014)
+================================================
+[ADDED] a new tooltip method: GetOffsetX()
+[ADDED] a new tooltip method: GetOffsetY()
+[ADDED] a new tooltip method: GetOffsets()
+[ADDED] a new tooltip method: GetFollowCursor()
+[ADDED] a new tooltip method: GetObject()
+[ADDED] a new tooltip method: GetFont()
+[ADDED] a new tooltip method: GetFollowObject()
+
+[CHANGED] Moved library files to /libraries
+[CHANGED] Upgraded to middleclass 3.0.1
+
+================================================
+Version 0.9.7 - Alpha (January 12 - 2014)
 ================================================
 [ADDED] a new base method: textinput(text)
-[ADDED] a new tooltip method: SetOffsetX(xoffset)
-[ADDED] a new tooltip method: SetOffsetY(yoffset)
-[ADDED] a new tooltip method: GetText()
+[ADDED] a new frame method: SetResizable(bool)
+[ADDED] a new frame method: GetResizable()
+[ADDED] a new frame method: SetMinWidth(width)
+[ADDED] a new frame method: GetMinWidth()
+[ADDED] a new frame method: SetMaxWidth(width)
+[ADDED] a new frame method: GetMaxWidth()
+[ADDED] a new frame method: SetMinHeight(height)
+[ADDED] a new frame method: GetMinHeight()
+[ADDED] a new frame method: SetMaxHeight(height)
+[ADDED] a new frame method: GetMaxHeight()
+[ADDED] a new progressbar method: SetText(text)
+[ADDED] a new progressbar method: GetText()
+[ADDED] a new tabs method: SetButtonAreaX(x)
+[ADDED] a new tabs method: GetButtonAreaX()
+[ADDED] a new tabs method: SetButtonAreaWidth(width)
+[ADDED] a new tabs method: GetButtonAreaWidth()
+[ADDED] a new tabs method: SetAutoButtonAreaWidth(bool)
+[ADDED] a new tabs method: GetAutoButtonAreaWidth()
+[ADDED] a new text method: SetLinksEnabled(enabled)
+[ADDED] a new text method: GetLinksEnabled()
+[ADDED] a new text method: SetDetectLinks(detect)
+[ADDED] a new text method: GetDetectLinks()
 [ADDED] a new textinput method: Copy()
 [ADDED] a new textinput method: Paste()
 [ADDED] a new textinput method: SelectAll()
@@ -15,23 +85,24 @@ Version 0.9.6.4 - Alpha (Release Date TBD)
 [ADDED] a new textinput method: GetMaskChar()
 [ADDED] a new textinput method: SetPlaceholderText(text)
 [ADDED] a new textinput method: GetPlaceholderText()
-[ADDED] a new text method: SetLinksEnabled(enabled)
-[ADDED] a new text method: GetLinksEnabled()
-[ADDED] a new text method: SetDetectLinks(detect)
-[ADDED] a new text method: GetDetectLinks()
-[ADDED] a new progressbar method: SetText(text)
-[ADDED] a new progressbar method: GetText()
+[ADDED] a new tooltip method: SetOffsetX(xoffset)
+[ADDED] a new tooltip method: SetOffsetY(yoffset)
+[ADDED] a new tooltip method: GetText()
 [ADDED] a new text event callback: OnClickLink(object, text)
+[ADDED] a new frame event callback: OnResize(object, width, height)
 [ADDED] a new util library function: TableHasValue(table, value)
 [ADDED] a new util library function: GetHoverObject()
 [ADDED] a new callback: textinput(text)
 [ADDED] a new object: form
+[ADDED] a new object: menu
+[ADDED] a new skin drawing function: DrawOverTabPanel(object)
 [ADDED] basic clipboard support for the textinput object (0.9.0 only)
 [ADDED] custom cursor support for the textinput object
 [ADDED] support for love.filesystem changes to loveframes.util.GetDirectoryContents (0.9.0 only)
 [ADDED] support for text object link processing
 [ADDED] loveframes.downobject
 [ADDED] skin directives for the text object
+[ADDED] functionality for resizing frames
 
 [FIXED] error when pressing a function key while a textinput was focused
 [FIXED] the tooltip object not setting the state of its text object
@@ -39,6 +110,7 @@ Version 0.9.6.4 - Alpha (Release Date TBD)
 [FIXED] textinput:GetText appending an extra newline to then end of the text string
 [FIXED] text processing issues with the textinput object (0.9.0 only)
 [FIXED] text positioning issues when moving the textinput's indicator with the left and right arrow keys
+[FIXED] textinput character limit blocking user input when all text was selected
 
 [CHANGED] cleaned up the tooltip object
 [CHANGED] upgraded to middleclass 3.0

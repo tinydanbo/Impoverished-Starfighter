@@ -61,8 +61,6 @@ function title:draw()
 
 	self.aboutInfo:draw()
 
-	love.graphics.print("v0.5", 5, 625)
-
 	self.blackMask:draw()
 end
 

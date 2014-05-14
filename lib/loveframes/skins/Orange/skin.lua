@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- skin table
@@ -27,6 +27,9 @@ skin.controls.checkbox_check_color                  = {255, 153, 0, 255}
 -- columnlistrow
 skin.controls.columnlistrow_body_selected_color     = {255, 153, 0, 255}
 skin.controls.columnlistrow_body_hover_color        = {255, 173, 51, 255}
+
+-- menuoption
+skin.controls.menuoption_body_hover_color           = {255, 153, 0, 255}
 
 -- register the skin
 loveframes.skins.Register(skin)

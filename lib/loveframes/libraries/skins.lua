@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- skins library
@@ -38,7 +38,7 @@ function loveframes.skins.Register(skin)
 		loveframes.util.Error("Skin registration error: A skin with the name '" ..name.. "' already exists.")
 	end
 	
-	local dir = loveframes.config["DIRECTORY"] .. "/skins/" ..name
+	local dir = skin.directory or loveframes.config["DIRECTORY"] .. "/skins/" ..name
 	local dircheck = love.filesystem.isDirectory(dir)
 	if not dircheck then
 		loveframes.util.Error("Skin registration error: Could not find a directory for skin '" ..name.. "'.")
@@ -92,7 +92,7 @@ function loveframes.skins.Register(skin)
 			local extension = v.extension
 			local fullpath = v.fullpath
 			local key = filename .. "." .. extension
-			if extension ~= "db" then
+			if extension ~= "db" and extension ~= "DS_Store" then
 				loveframes.skins.available[name].images[key] = love.graphics.newImage(fullpath)
 			end
 		end

@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- scrollarea class
@@ -45,18 +45,9 @@ function newobject:update(dt)
 		end
 	end
 	
-	local parent = self.parent
-	local base = loveframes.base
-	local update = self.Update
-	
-	-- move to parent if there is a parent
-	if parent ~= base then
-		self.x = parent.x + self.staticx
-		self.y = parent.y + self.staticy
-	end
-	
 	self:CheckHover()
 	
+	local base = loveframes.base
 	local parent = self.parent
 	local pinternals = parent.internals
 	local button = pinternals[2]
@@ -70,6 +61,7 @@ function newobject:update(dt)
 	local internals = self.internals
 	local bar = internals[1]
 	local hover = self.hover
+	local update = self.Update
 	
 	if button then
 		if bartype == "vertical" then
@@ -83,6 +75,12 @@ function newobject:update(dt)
 			self.width = parent.width - button.width*2 + 2
 			self.height = parent.height
 		end
+	end
+	
+	-- move to parent if there is a parent
+	if parent ~= base then
+		self.x = parent.x + self.staticx
+		self.y = parent.y + self.staticy
 	end
 	
 	if down then

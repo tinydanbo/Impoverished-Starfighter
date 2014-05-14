@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- columnlistarea class
@@ -73,7 +73,10 @@ function newobject:update(dt)
 	end
 	
 	for k, v in ipairs(children) do
-		v:update(dt)
+		local col = loveframes.util.BoundingBox(self.x, v.x, self.y, v.y, self.width, v.width, self.height, v.height)
+		if col then
+			v:update(dt)
+		end
 		v:SetClickBounds(self.x, self.y, self.width, self.height)
 		v.y = (v.parent.y + v.staticy) - self.offsety + cheight
 		v.x = (v.parent.x + v.staticx) - self.offsetx
@@ -102,7 +105,6 @@ function newobject:draw()
 	local width = self.width
 	local height = self.height
 	local stencilfunc = function() love.graphics.rectangle("fill", x, y, width, height) end
-	local loveversion = love._version
 	local skins = loveframes.skins.available
 	local skinindex = loveframes.config["ACTIVESKIN"]
 	local defaultskin = loveframes.config["DEFAULTSKIN"]
@@ -124,16 +126,11 @@ function newobject:draw()
 		drawfunc(self)
 	end
 	
-	if loveversion == "0.8.0" then
-		local stencil = love.graphics.newStencil(stencilfunc)
-		love.graphics.setStencil(stencil)
-	else
-		love.graphics.setStencil(stencilfunc)
-	end
+	love.graphics.setStencil(stencilfunc)
 	
 	for k, v in ipairs(children) do
 		local col = loveframes.util.BoundingBox(self.x, v.x, self.y, v.y, self.width, v.width, self.height, v.height)
-		if col == true then
+		if col then
 			v:draw()
 		end
 	end

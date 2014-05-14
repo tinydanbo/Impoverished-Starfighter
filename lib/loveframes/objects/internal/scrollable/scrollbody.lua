@@ -1,6 +1,6 @@
 --[[------------------------------------------------
 	-- Love Frames - A GUI library for LOVE --
-	-- Copyright (c) 2013 Kenny Shields --
+	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
 -- scrollbar class
@@ -38,6 +38,8 @@ function newobject:initialize(parent, bartype)
 	
 	if self.bartype == "vertical" then 
 		local upbutton = loveframes.objects["scrollbutton"]:new("up")
+		upbutton.staticx = 0 + self.width - upbutton.width
+		upbutton.staticy = 0
 		upbutton.parent = self
 		upbutton.Update	= function(object, dt)
 			upbutton.staticx = 0 + self.width - upbutton.width
@@ -54,6 +56,8 @@ function newobject:initialize(parent, bartype)
 		end
 		local downbutton = loveframes.objects["scrollbutton"]:new("down")
 		downbutton.parent = self
+		downbutton.staticx = 0 + self.width - downbutton.width
+		downbutton.staticy = 0 + self.height - downbutton.height
 		downbutton.Update = function(object, dt)
 			downbutton.staticx = 0 + self.width - downbutton.width
 			downbutton.staticy = 0 + self.height - downbutton.height
@@ -72,6 +76,8 @@ function newobject:initialize(parent, bartype)
 	elseif self.bartype == "horizontal" then
 		local leftbutton = loveframes.objects["scrollbutton"]:new("left")
 		leftbutton.parent = self
+		leftbutton.staticx = 0
+		leftbutton.staticy = 0
 		leftbutton.Update = function(object, dt)
 			leftbutton.staticx = 0
 			leftbutton.staticy = 0
@@ -87,6 +93,8 @@ function newobject:initialize(parent, bartype)
 		end
 		local rightbutton = loveframes.objects["scrollbutton"]:new("right")
 		rightbutton.parent = self
+		rightbutton.staticx = 0 + self.width - rightbutton.width
+		rightbutton.staticy = 0
 		rightbutton.Update = function(object, dt)
 			rightbutton.staticx = 0 + self.width - rightbutton.width
 			rightbutton.staticy = 0

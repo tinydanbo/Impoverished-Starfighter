@@ -3,24 +3,28 @@
 	-- Copyright (c) 2012-2014 Kenny Shields --
 --]]------------------------------------------------
 
--- button object
-local newobject = loveframes.NewObject("button", "loveframes_object_button", true)
+-- menuoption object
+local newobject = loveframes.NewObject("menuoption", "loveframes_object_menuoption", true)
 
 --[[---------------------------------------------------------
 	- func: initialize()
 	- desc: initializes the object
 --]]---------------------------------------------------------
-function newobject:initialize()
+function newobject:initialize(parent, option_type, menu)
 	
-	self.type = "button"
-	self.text = "Button"
-	self.width = 80
+	self.type = "menuoption"
+	self.text = "Option"
+	self.width = 100
 	self.height = 25
-	self.internal = false
-	self.down = false
-	self.clickable = true
-	self.enabled = true
-	self.OnClick = nil
+	self.contentwidth = 0
+	self.contentheight = 0
+	self.parent = parent
+	self.option_type = option_type or "option"
+	self.menu = menu
+	self.activated = false
+	self.internal = true
+	self.icon = false
+	self.func = nil
 	
 end
 
@@ -49,20 +53,41 @@ function newobject:update(dt)
 	self:CheckHover()
 	
 	local hover = self.hover
-	local down = self.down
-	local downobject = loveframes.downobject
 	local parent = self.parent
+	local option_type = self.option_type
+	local activated = self.activated
 	local base = loveframes.base
 	local update = self.Update
 	
-	if not hover then
-		self.down = false
-		if downobject == self then
-			self.hover = true
-		end
-	else
-		if downobject == self then
-			self.down = true
+	if option_type == "submenu_activator" then
+		if hover and not activated then
+			self.menu:SetVisible(true)
+			self.menu:MoveToTop()
+			self.activated = true
+		elseif not hover and activated then
+			local hoverobject = loveframes.hoverobject
+			if hoverobject and hoverobject:GetBaseParent() == self.parent then
+				self.menu:SetVisible(false)
+				self.activated = false
+			end
+		elseif activated then
+			local screen_width = love.graphics.getWidth()
+			local screen_height = love.graphics.getHeight()
+			local sx = self.x
+			local sy = self.y
+			local width = self.width
+			local height = self.height
+			local x1 = sx + width
+			if x1 + self.menu.width <= screen_width then
+				self.menu.x = x1
+			else
+				self.menu.x = sx - self.menu.width
+			end
+			if sy + self.menu.height <= screen_height then
+				self.menu.y = sy
+			else
+				self.menu.y = (sy + height) - self.menu.height
+			end
 		end
 	end
 	
@@ -102,7 +127,7 @@ function newobject:draw()
 	local defaultskin = loveframes.config["DEFAULTSKIN"]
 	local selfskin = self.skin
 	local skin = skins[selfskin] or skins[skinindex]
-	local drawfunc = skin.DrawButton or skins[defaultskin].DrawButton
+	local drawfunc = skin.DrawMenuOption or skins[defaultskin].DrawMenuOption
 	local draw = self.Draw
 	local drawcount = loveframes.drawcount
 	
@@ -136,17 +161,6 @@ function newobject:mousepressed(x, y, button)
 		return
 	end
 	
-	local hover = self.hover
-	
-	if hover and button == "l" then
-		local baseparent = self:GetBaseParent()
-		if baseparent and baseparent.type == "frame" then
-			baseparent:MakeTop()
-		end
-		self.down = true
-		loveframes.downobject = self
-	end
-	
 end
 
 --[[---------------------------------------------------------
@@ -169,20 +183,16 @@ function newobject:mousereleased(x, y, button)
 	end
 	
 	local hover = self.hover
-	local down = self.down
-	local clickable = self.clickable
-	local enabled = self.enabled
-	local onclick = self.OnClick
-	
-	if hover and down and clickable and button == "l" then
-		if enabled then
-			if onclick then
-				onclick(self, x, y)
-			end
+	local option_type = self.option_type
+	if hover and option_type ~= "divider" and button == "l" then
+		local func = self.func
+		if func then
+			local text = self.text
+			func(self, text)
 		end
+		local basemenu = self.parent:GetBaseMenu()
+		basemenu:SetVisible(false)
 	end
-	
-	self.down = false
 
 end
 
@@ -193,7 +203,6 @@ end
 function newobject:SetText(text)
 
 	self.text = text
-	return self
 	
 end
 
@@ -208,43 +217,35 @@ function newobject:GetText()
 end
 
 --[[---------------------------------------------------------
-	- func: SetClickable(bool)
-	- desc: sets whether the object can be clicked or not
+	- func: SetIcon(icon)
+	- desc: sets the object's icon
 --]]---------------------------------------------------------
-function newobject:SetClickable(bool)
+function newobject:SetIcon(icon)
 
-	self.clickable = bool
-	return self
+	if type(icon) == "string" then
+		self.icon = love.graphics.newImage(icon)
+	elseif type(icon) == "userdata" then
+		self.icon = icon
+	end
 	
 end
 
 --[[---------------------------------------------------------
-	- func: GetClickable(bool)
-	- desc: gets whether the object can be clicked or not
+	- func: GetIcon()
+	- desc: gets the object's icon
 --]]---------------------------------------------------------
-function newobject:GetClickable()
+function newobject:GetIcon()
 
-	return self.clickable
+	return self.icon
 	
 end
 
 --[[---------------------------------------------------------
-	- func: SetClickable(bool)
-	- desc: sets whether or not the object is enabled
+	- func: SetFunction(func)
+	- desc: sets the object's function
 --]]---------------------------------------------------------
-function newobject:SetEnabled(bool)
+function newobject:SetFunction(func)
 
-	self.enabled = bool
-	return self
-	
-end
-
---[[---------------------------------------------------------
-	- func: GetEnabled()
-	- desc: gets whether or not the object is enabled
---]]---------------------------------------------------------
-function newobject:GetEnabled()
-
-	return self.enabled
+	self.func = func
 	
 end
