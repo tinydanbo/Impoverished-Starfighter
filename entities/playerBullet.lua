@@ -1,6 +1,8 @@
 Class = require "lib.hump.class"
 vector = require "lib.hump.vector"
 Entity = require "entity"
+ParticleTypes = require "entities.types"
+Particle = require "game.particles.particle"
 
 PlayerBullet = Class{__includes = Entity,
 	init = function(self, x, y, image, damageOnHit, dx, dy, state)
@@ -26,7 +28,10 @@ function PlayerBullet:update(dt)
 end
 
 function PlayerBullet:onCollide()
-
+	for i=-4,4,1 do
+		local particle = Particle(self.position.x, self.position.y, math.random(-200, 200), math.random(70, 300), 255, 170, 0, 140, 400, self.state)
+		self.state.manager:addEntity(particle, EntityTypes.PARTICLE)
+	end
 end
 
 function PlayerBullet:draw()

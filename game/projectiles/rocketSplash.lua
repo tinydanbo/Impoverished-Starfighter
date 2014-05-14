@@ -41,8 +41,8 @@ end
 function RocketSplash:draw()
 	local x,y = self.position:unpack()
 
-	love.graphics.setColor(255, 255, 255, self.duration+10)
-	love.graphics.rectangle("fill", x-30, y-30, 60, 60)
+	love.graphics.setColor(255, 255, 255, self.duration/2)
+	love.graphics.circle("fill", x-30, y-30, 60)
 
 	Entity.draw(self)
 end

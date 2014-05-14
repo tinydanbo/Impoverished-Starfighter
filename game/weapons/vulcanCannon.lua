@@ -28,13 +28,13 @@ function VulcanCannon:fire()
 		love.audio.rewind(self.fireSound)
 		love.audio.play(self.fireSound)
 		if self.barrel == 0 then
-			local newBullet = PlayerBullet(player.position.x-10, player.position.y-5, loader.Image.weapons.vulcanShot, 3, math.random(-70+(self.rank*10), 40-(self.rank*10)), -550, self.state.manager)
+			local newBullet = PlayerBullet(player.position.x-10, player.position.y-5, loader.Image.weapons.vulcanShot, 3, math.random(-70+(self.rank*10), 40-(self.rank*10)), -550, self.state)
 			self.state.manager:addEntity(newBullet, EntityTypes.PLAYER_BULLET)
 			local particle = Particle(player.position.x-10, player.position.y-5, -20, -20, 100, 100, 100, 255, 450, self.state.manager)
 			self.state.manager:addEntity(particle, EntityTypes.PARTICLE)
 			self.barrel = 1
 		else 
-			local newBullet2 = PlayerBullet(player.position.x+10, player.position.y-5, loader.Image.weapons.vulcanShot, 3, math.random(-70+(self.rank*10), 40-(self.rank*10)), -550, self.state.manager)
+			local newBullet2 = PlayerBullet(player.position.x+10, player.position.y-5, loader.Image.weapons.vulcanShot, 3, math.random(-70+(self.rank*10), 40-(self.rank*10)), -550, self.state)
 			self.state.manager:addEntity(newBullet2, EntityTypes.PLAYER_BULLET)
 			local particle = Particle(player.position.x+10, player.position.y-5, 20, -20, 100, 100, 100, 255, 450, self.state.manager)
 			self.state.manager:addEntity(particle, EntityTypes.PARTICLE)
